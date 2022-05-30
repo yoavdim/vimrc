@@ -102,11 +102,17 @@ set shiftwidth=4
 set textwidth=0
 
 " -- plugins --
+let data_dir =  '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin('~/.vim/plugged')
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'vhda/verilog_systemverilog.vim'
 Plug 'ervandew/supertab'
 Plug 'rhysd/clever-f.vim'
+Plug 'morhetz/gruvbox'
 " already preincluded? Plug 'https://github.com/adelarsq/vim-matchit'
 
 call plug#end()

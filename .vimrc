@@ -44,11 +44,6 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 "hi normal guifg=blue guibg=gray
 set nu
 color desert
-if has('nvim')
-    set guicursor=n-v-c-sm:block
-    set guicursor+=i-ci-ve:ver25-Cursor
-    set guicursor+=r-cr-o:hor20
-endif
 
 
 "Shift-RIGHT complete when inc search what's under the cursor
@@ -68,13 +63,17 @@ vmap <S-Right> <Right>
 vmap <CR> <Esc>
 nmap <S-Right> v<Right>
 
-"Shift-Insert = paste
+" Open line
+nnoremap <leader>o o<Esc>
+inoremap <C-Enter> <Esc>o
+
+" Paste
 nmap <leader>p <Esc>"+p
 nmap <S-Insert> <Esc>"+p
 imap <S-Insert> <Esc>"+pi<Right>
 cmap <S-Insert> <MiddleMouse>
 
-" copy
+" Copy
 vnoremap <M-y> "+y
 vnoremap Y "+y
 nnoremap Y "+y
@@ -85,12 +84,12 @@ vnoremap <leader>y "+y
 nmap <M-s> <Esc>:w
 imap <M-s> <Esc>:wi
 
-imap <M-o> <Esc>:o
 
 nnoremap <leader>ev :e $MYVIMRC<CR>
 " % highlight {..}
 :nmap % v%
 
+" tags
 set tags=./tags
 set tags+=~/.vim/tags
 if !empty($trunk_cfg)
@@ -101,6 +100,9 @@ if !empty($TRUNK)
 elseif !empty($trunk)
     set tags+=${trunk}/../.tags  
 endif
+
+" make
+nnoremap <leader>n :cnext
 
 " relative number "
 set relativenumber

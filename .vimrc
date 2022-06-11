@@ -1,9 +1,8 @@
-:set expandtab
-:set nowrap
+set expandtab
+set nowrap
 :set title
 :set ruler
-:set ignorecase
-:set guifont=Courier10Pitch\ 16
+set ignorecase
 :syntax on
 :au! BufRead,BufNewFile *.fs    set filetype=vhdl
 :au! BufRead,BufNewFile *.ifc	set filetype=vhdl
@@ -30,6 +29,8 @@ set statusline=%<%f%=\ [%1*%M%*%n%R%H]\ %-19(%3l,%02c%03V%)%O'%02b'
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 "let &packpath = &runtimepath
 
+" gui staff 
+:set guifont=Courier10Pitch\ 16
 :set ts=4
 :set titlestring=%t
 :set undolevels=500
@@ -43,6 +44,13 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 "hi normal guifg=blue guibg=gray
 set nu
 color desert
+if has('nvim')
+    set guicursor=n-v-c-sm:block
+    set guicursor+=i-ci-ve:ver25-Cursor
+    set guicursor+=r-cr-o:hor20
+endif
+
+
 "Shift-RIGHT complete when inc search what's under the cursor
 "Shift-Down complete whole word - under cursor
 cnoremap <S-Down> <CR>yiw<BS>/<C-R>"
@@ -67,7 +75,7 @@ imap <S-Insert> <Esc>"+pi<Right>
 cmap <S-Insert> <MiddleMouse>
 
 " copy
-vnoremap <M-y> "*y
+vnoremap <M-y> "+y
 vnoremap Y "+y
 nnoremap Y "+y
 nnoremap <leader>y "+y

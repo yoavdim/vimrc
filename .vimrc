@@ -85,6 +85,8 @@ nnoremap <leader>ev :e $MYVIMRC<CR>
 
 set tags=./tags
 set tags+=~/.vim/tags
+if !empty($trunk_cfg)
+    set tags+=${trunk_cfg}/.tags
 if !empty($TRUNK)
     set tags+=${TRUNK}/../.tags  
 elseif !empty($trunk)
@@ -113,6 +115,7 @@ Plug 'vhda/verilog_systemverilog.vim'
 Plug 'ervandew/supertab'
 Plug 'rhysd/clever-f.vim'
 Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-eunuch'
 " already preincluded? Plug 'https://github.com/adelarsq/vim-matchit'
 
 call plug#end()

@@ -95,6 +95,7 @@ set tags=./tags
 set tags+=~/.vim/tags
 if !empty($trunk_cfg)
     set tags+=${trunk_cfg}/.tags
+endif
 if !empty($TRUNK)
     set tags+=${TRUNK}/../.tags  
 elseif !empty($trunk)

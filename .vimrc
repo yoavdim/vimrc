@@ -93,7 +93,7 @@ nnoremap <leader>ev :e $MYVIMRC<CR>
 set tags=./tags
 set tags+=~/.vim/tags
 if !empty($trunk_cfg)
-    set tags+=${trunk_cfg}/.tags
+    set tags+=${trunk_cfg}/tags
 endif
 if !empty($TRUNK)
     set tags+=${TRUNK}/../.tags  
@@ -103,6 +103,7 @@ endif
 
 " make
 nnoremap <leader>n :cnext
+" see VerilogErrorFormat, still need a .PHONY makefile
 
 " relative number "
 set relativenumber
@@ -132,3 +133,6 @@ Plug 'tpope/vim-eunuch'
 call plug#end()
 
 colorscheme gruvbox
+
+" 3=only errors 2=warnings 1=all(linting)
+VerilogErrorFormat vcs 3

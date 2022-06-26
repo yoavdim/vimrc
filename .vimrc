@@ -111,6 +111,8 @@ set mouse=a
 " common keybinding "
 imap jk <Esc>
 imap kj <Esc>
+vmap jk <Esc>
+vmap kj <Esc>
 " auto-generated tab is also of normal size "
 set shiftwidth=4
 set textwidth=0
@@ -135,4 +137,4 @@ call plug#end()
 colorscheme gruvbox
 
 " 3=only errors 2=warnings 1=all(linting)
-VerilogErrorFormat vcs 3
+" VerilogErrorFormat vcs 3

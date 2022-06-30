@@ -17,7 +17,7 @@ fi
 
 # install vimrc
 cd 
-git clone "git@github.com:yoavdim/vimrc.git" || exit 2
+git clone "https://github.com/yoavdim/vimrc.git" || exit 2
 mkdir -p ~/.vim/after/plugin 2>/dev/null
 mkdir -p ~/.config/nvim 2>/dev/null
 ln -s `pwd`/vim/.vimrc ~/.vimrc || exit 3

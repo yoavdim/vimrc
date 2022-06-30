@@ -5,9 +5,9 @@ cd
 if ! which nvim >&/dev/null ; then
     curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage || exit 1
     chmod u+x nvim.appimage || exit 1
+    mkdir -p ~/.local/bin 2>/dev/null
     if ! ./nvim.appimage +qa ; then 
         ./nvim.appimage --appimage-extract || exit 1
-        mkdir -p ~/.local/bin 2>/dev/null
         ln -s `pwd`/squashfs-root/AppRun ~/.local/bin/nvim || exit 1
         rm ~/nvim.appimage
     else 

@@ -3,7 +3,7 @@
 # install nvim
 cd 
 if ! which nvim >&/dev/null ; then
-    curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage || exit 1
+    curl -LsO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage || exit 1
     chmod u+x nvim.appimage || exit 1
     mkdir -p ~/.local/bin 2>/dev/null
     if ! ./nvim.appimage +qa ; then 
@@ -20,9 +20,9 @@ cd
 git clone "https://github.com/yoavdim/vimrc.git" || exit 2
 mkdir -p ~/.vim/after/plugin 2>/dev/null
 mkdir -p ~/.config/nvim 2>/dev/null
-ln -s `pwd`/vim/.vimrc ~/.vimrc || exit 3
-ln -s `pwd`/vim/verilogrc.vim ~/.vim/after/plugin/verilogrc.vim || exit 3
-ln -s `pwd`/vim/init.vim ~/.config/nvim/init.vim || exit 3
+ln -s `pwd`/vimrc/.vimrc ~/.vimrc || exit 3
+ln -s `pwd`/vimrc/verilogrc.vim ~/.vim/after/plugin/verilogrc.vim || exit 3
+ln -s `pwd`/vimrc/init.vim ~/.config/nvim/init.vim || exit 3
 
 # PlugInstall plugins
 ~/.local/bin/nvim +PlugInstall +qa || exit 4

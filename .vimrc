@@ -130,6 +130,7 @@ Plug 'ervandew/supertab'
 Plug 'rhysd/clever-f.vim'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-eunuch'
+"Plug 'mg979/vim-visual-multi', {'branch': 'master'} - take toturial first
 " already preincluded? Plug 'https://github.com/adelarsq/vim-matchit'
 
 call plug#end()

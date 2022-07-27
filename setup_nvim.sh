@@ -18,7 +18,7 @@ fi
 # install vimrc
 cd 
 git clone "https://github.com/yoavdim/vimrc.git" || exit 2
-mkdir -p ~/.vim/after/plugin 2>/dev/null
+mkdir -p ~/.vim/after/ftplugin 2>/dev/null
 mkdir -p ~/.config/nvim 2>/dev/null
 ln -s `pwd`/vimrc/.vimrc ~/.vimrc || exit 3
 ln -s `pwd`/vimrc/verilog_systemverilog.vim ~/.vim/after/ftplugin/verilog_systemverilog.vim || exit 3

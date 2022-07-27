@@ -6,6 +6,8 @@ if ! which nvim >&/dev/null ; then
     curl -LsO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage || exit 1
     chmod u+x nvim.appimage || exit 1
     mkdir -p ~/.local/bin 2>/dev/null
+    if $? ; then
+        echo "Please add to bashrc: PATH=\"${PATH}:~/.local/bin\""
     if ! ./nvim.appimage +qa ; then 
         ./nvim.appimage --appimage-extract || exit 1
         ln -s `pwd`/squashfs-root/AppRun ~/.local/bin/nvim || exit 1

@@ -19,9 +19,11 @@ fi
 cd 
 git clone "https://github.com/yoavdim/vimrc.git" || exit 2
 mkdir -p ~/.vim/after/ftplugin 2>/dev/null
+mkdir -p ~/.vim/after/plugins 2>/dev/null  # not the "plugin" folder
 mkdir -p ~/.config/nvim 2>/dev/null
 ln -s `pwd`/vimrc/.vimrc ~/.vimrc || exit 3
 ln -s `pwd`/vimrc/verilog_systemverilog.vim ~/.vim/after/ftplugin/verilog_systemverilog.vim || exit 3
+ln -s `pwd`/vimrc/telescope.vim ~/.vim/after/plugins/telescope.vim || exit 3
 ln -s `pwd`/vimrc/init.vim ~/.config/nvim/init.vim || exit 3
 
 # PlugInstall plugins

@@ -8,6 +8,7 @@ if ! which nvim >&/dev/null ; then
     mkdir -p ~/.local/bin 2>/dev/null
     if $? ; then
         echo "Please add to bashrc: PATH=\"${PATH}:~/.local/bin\""
+    fi
     if ! ./nvim.appimage +qa ; then 
         ./nvim.appimage --appimage-extract || exit 1
         ln -s `pwd`/squashfs-root/AppRun ~/.local/bin/nvim || exit 1

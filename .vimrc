@@ -125,7 +125,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 call plug#begin('~/.vim/plugged')
 
-source ~/.vim/plugins/telescope.vim
+source ~/.vim/after/plugins/telescope.vim
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'vhda/verilog_systemverilog.vim'
 Plug 'ervandew/supertab'

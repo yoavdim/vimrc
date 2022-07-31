@@ -26,7 +26,6 @@ augroup END
 :ab arch architecture
 set laststatus =2
 set statusline=%<%f%=\ [%1*%M%*%n%R%H]\ %-19(%3l,%02c%03V%)%O'%02b'
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
 "let &packpath = &runtimepath
 
 " gui staff 
@@ -54,6 +53,8 @@ cnoremap <S-Right> <CR>y/<Up>/e+1<CR><BS>/<C-R>=escape(@",'.*\/?')<CR>
 "press / or n when visual mode - will search the selected string
 vmap / y/<C-R>"<CR>
 vmap n y/<C-R>"<CR>
+vmap ? y?<C-R>"<CR>
+vmap N y?<C-R>"<CR>
 vnoremap < <gv
 vnoremap > >gv
 
@@ -113,6 +114,12 @@ imap jk <Esc>
 imap kj <Esc>
 vmap jk <Esc>
 vmap kj <Esc>
+" typos "
+command W w
+command Q q
+command X x
+" use f instead of ; in find
+nnoremap ; :
 " auto-generated tab is also of normal size "
 set shiftwidth=4
 set textwidth=0
@@ -136,6 +143,8 @@ Plug 'tpope/vim-eunuch'
 " already preincluded? Plug 'https://github.com/adelarsq/vim-matchit'
 
 call plug#end()
+
+doautocmd User DoAfterConfigs
 
 colorscheme gruvbox
 

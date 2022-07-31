@@ -4,16 +4,14 @@ vimrc_git_name=vimrc
 bin_path=~/.local/bin
 use_bin=0 # if binary in $path or not
 
-# install nvim
+# install nvim 
 cd 
 if ! which nvim >&/dev/null ; then
     use_bin=1
     if [[ ! -f "$bin_path/nvim" ]] ; then
         curl -LsO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage || exit 1
         chmod u+x nvim.appimage || exit 1
-        if mkdir -p ~/.local/bin 2>/dev/null ; then
-            echo "Please add to bashrc: PATH=\"${PATH}:~/.local/bin\""
-        fi
+        mkdir -p ~/.local/bin 2>/dev/null
         if ! ./nvim.appimage +qa ; then 
             ./nvim.appimage --appimage-extract || exit 1
             ln -s `pwd`/squashfs-root/AppRun $bin_path/nvim || exit 1
@@ -22,9 +20,13 @@ if ! which nvim >&/dev/null ; then
             ln -s `pwd`/nvim.appimage $bin_path/nvim || exit 1
         fi
     fi
+
+    if echo "$PATH" | grep -q "${bin_path}" ; then
+        echo "Please add to bashrc: PATH=\"\${PATH}:${bin_path}\""
+    fi
 fi
 
-# install vimrc
+# install vimrc (clone in ~)
 cd 
 if ! [[ -d ~/$vimrc_git_name ]] ; then
     git clone "https://github.com/yoavdim/vimrc.git" || exit 2

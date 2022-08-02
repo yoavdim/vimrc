@@ -1,6 +1,6 @@
 
  VerilogErrorFormat vcs 3
- function Lint()
+ function! Lint()
      VerilogErrorFormat spyglass 2
      make lint
      VerilogErrorFormat vcs 3

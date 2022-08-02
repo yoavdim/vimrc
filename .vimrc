@@ -22,6 +22,7 @@ set autoindent
 augroup sv_indent
     au!
     autocmd FileType * if &filetype != "verilog_systemverilog" | set smartindent
+    autocmd FileType * if &filetype == "verilog_systemverilog" | set autoindent
 augroup END
 :ab arch architecture
 set laststatus =2
@@ -86,7 +87,8 @@ nmap <M-s> <Esc>:w
 imap <M-s> <Esc>:wi
 
 
-nnoremap <leader>ev :e $MYVIMRC<CR>
+nnoremap <leader>ev :e ~/.vimrc<CR>
+nnoremap <leader>lv :source $MYVIMRC<CR>
 " % highlight {..}
 :nmap % v%
 

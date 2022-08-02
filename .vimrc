@@ -81,7 +81,9 @@ vnoremap Y "+y
 nnoremap Y "+y
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
-
+" Copy File
+nnoremap <leader>ya :%y+<CR>:echo "Yanked File"<CR>
+nnoremap <leader>sa ggVG
 " Save
 nmap <M-s> <Esc>:w
 imap <M-s> <Esc>:wi

@@ -106,6 +106,9 @@ elseif !empty($trunk)
     set tags+=${trunk}/../.tags  
 endif
 
+function! Search_basename() 
+" TODO
+endfunction
 " make
 nnoremap <leader>n :cnext
 " see VerilogErrorFormat, still need a .PHONY makefile
@@ -127,6 +130,14 @@ nnoremap ; :
 " auto-generated tab is also of normal size "
 set shiftwidth=4
 set textwidth=0
+
+" jump to the last location from previews session
+if has("nvim")
+    autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+endif
 
 " -- plugins --
 let data_dir =  '~/.vim'

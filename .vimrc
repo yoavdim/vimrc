@@ -106,9 +106,10 @@ elseif !empty($trunk)
     set tags+=${trunk}/../.tags  
 endif
 
-function! Search_basename() 
-" TODO
+function! Search_trunk(module_name) 
+    e `base_find a:module_name`
 endfunction
+
 " make
 nnoremap <leader>n :cnext
 " see VerilogErrorFormat, still need a .PHONY makefile

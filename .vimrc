@@ -126,9 +126,12 @@ function! Search_trunk_range() range
     " Get the desired text
     let selectedText = join(lines, "\n")         
 
-    " Do the call to tmux
+    " Do the call
     call Search_trunk(selectedText) 
 endfunction
+
+nnoremap <leader>gf viw:call Search_trunk_range()<cr>
+vnoremap <leader>gf :call Search_trunk_range()<cr>
 
 " make
 nnoremap <leader>n :cnext

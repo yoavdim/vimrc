@@ -105,6 +105,7 @@ function setup_telescope()
 			  '--filename',
 			  '--column',
 			  '--smart-case',
+              '--follow',
 			},
 		},
 		pickers = {

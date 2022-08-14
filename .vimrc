@@ -107,7 +107,8 @@ elseif !empty($trunk)
 endif
 
 function! Search_trunk(module_name)
-    e `base_find a:module_name`
+    let b:file_name=system("base_find " . a:module_name)
+    execute 'edit' b:file_name
 endfunction
 
 function! Search_trunk_range() range 

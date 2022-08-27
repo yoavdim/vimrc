@@ -4,6 +4,11 @@ vimrc_git_name=vimrc
 bin_path=~/.local/bin
 use_bin=0 # if binary in $path or not
 
+# easy root install (export use_root=1)
+if [[ $use_root -ne 0 ]]; then
+    bin_path=/usr/bin
+fi
+
 # install nvim 
 cd 
 if ! which nvim >&/dev/null ; then

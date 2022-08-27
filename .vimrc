@@ -13,6 +13,7 @@ set ignorecase
 :au! BufRead,BufNewFile *.w     set filetype=perl
 :au! BufRead,BufNewFile csim_pli.elog  set filetype=csimpli
 :au! BufRead,BufNewFile *.rpt   set filetype=csimpli
+ au! BufRead,BufNewFile *.tex   set filetype=tex
 :set history=20
 :set wildchar=<TAB>
 :set showmatch
@@ -21,8 +22,8 @@ set ignorecase
 set autoindent
 augroup sv_indent
     au!
-    autocmd FileType * if &filetype != "verilog_systemverilog" | set smartindent
-    autocmd FileType * if &filetype == "verilog_systemverilog" | set autoindent
+    autocmd FileType * if &filetype != "verilog_systemverilog" | setlocal smartindent
+    autocmd FileType * if &filetype == "verilog_systemverilog" | setlocal autoindent
 augroup END
 :ab arch architecture
 set laststatus =2
@@ -88,7 +89,15 @@ nnoremap <leader>sa ggVG
 nmap <M-s> <Esc>:w
 imap <M-s> <Esc>:wi
 
+" Right Click Menu TODO
+set mousemodel=popup
 
+"let g:rightclick_default_mapping = 0
+"nnoremap <silent> <RightMouse> <LeftMouse>:call Rightclick_normal()<CR>
+"inoremap <silent> <RightMouse> <Esc>:call Rightclick_normal()<CR>
+"vnoremap <silent> <RightMouse> <LeftMouse>:call Rightclick_visual()<CR>
+
+" vimrc edit
 nnoremap <leader>ev :e ~/.vimrc<CR>
 nnoremap <leader>lv :source $MYVIMRC<CR>
 " % highlight {..}
@@ -173,12 +182,18 @@ endif
 call plug#begin('~/.vim/plugged')
 
 source ~/.vim/after/plugins/telescope.vim
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'vhda/verilog_systemverilog.vim'
 Plug 'ervandew/supertab'
 Plug 'rhysd/clever-f.vim'
-Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-eunuch'
+Plug 'yoavdim/ScrollColors'
+"Plug 'yoavdim/rightclick-macros'  -- TODO remove leftmouse mapping
+"color schemes:
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'nanotech/jellybeans.vim'
+Plug 'sakibmoon/vim-colors-notepad-plus-plus'
 "Plug 'mg979/vim-visual-multi', {'branch': 'master'} - take toturial first
 " already preincluded? Plug 'https://github.com/adelarsq/vim-matchit'
 

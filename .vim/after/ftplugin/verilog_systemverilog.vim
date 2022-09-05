@@ -11,3 +11,11 @@ silent VerilogErrorFormat vcs 3
      silent VerilogErrorFormat vcs 3
  endfunction
  command! -nargs=0 Lint call Lint()
+
+ if !has('nvim-0.5.0')
+    finish
+endif
+
+lua << EOF
+require'lspconfig'.verible.setup{}
+EOF

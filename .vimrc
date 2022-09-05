@@ -187,6 +187,7 @@ Plug 'ervandew/supertab'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'yoavdim/ScrollColors'
+Plug 'neovim/nvim-lspconfig'
 "Plug 'yoavdim/rightclick-macros'  -- TODO remove leftmouse mapping
 "color schemes:
 Plug 'dracula/vim', { 'as': 'dracula' }

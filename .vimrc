@@ -182,7 +182,11 @@ endif
 call plug#begin('~/.vim/plugged')
 
 source ~/.vim/after/plugins/telescope.vim
+if has("nvim")
+    Plug 'neovim/nvim-lspconfig'
+endif
 Plug 'vhda/verilog_systemverilog.vim'
+Plug 'justinmk/vim-syntax-extra'
 Plug 'ervandew/supertab'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-eunuch'
@@ -195,11 +199,13 @@ Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'nanotech/jellybeans.vim'
 Plug 'sakibmoon/vim-colors-notepad-plus-plus'
+
 "Plug 'mg979/vim-visual-multi', {'branch': 'master'} - take toturial first
 " already preincluded? Plug 'https://github.com/adelarsq/vim-matchit'
 
 call plug#end()
 
+source ~/.vim/after/plugins/veridian.vim
 doautocmd User DoAfterConfigs
 
 colorscheme gruvbox

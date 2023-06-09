@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# to control this script export $use_root, $force_new_nvim_install (ignore the distribution version, download from git), $do_nvim_reinstall (remove downloaded version and reinstall)
 vimrc_git_name=vimrc
 bin_path=~/.local/bin
 use_bin=0 # if binary in $path or not
@@ -11,12 +12,16 @@ fi
 
 # install nvim 
 cd 
-if ! which nvim >&/dev/null ; then
+if [[ -n $force_new_nvim_install ]] || ! which nvim >&/dev/null ; then
     use_bin=1
+    if [[ -n $do_nvim_reinstall ]] && [[ -n "$bin_path/nvim.appimage" ]] ; then
+        rm -f "$bin_path/nvim.appimage"
+        rm -f "$bin_path/nvim"
+    fi
     if [[ ! -f "$bin_path/nvim" ]] ; then
         curl -LsO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage || exit 1
         chmod u+x nvim.appimage || exit 1
-        mkdir -p ~/.local/bin 2>/dev/null
+        mkdir -p "$bin_path" 2>/dev/null
         if ! ./nvim.appimage +qa ; then 
             ./nvim.appimage --appimage-extract || exit 1
             ln -s `pwd`/squashfs-root/AppRun $bin_path/nvim || exit 1
@@ -28,6 +33,7 @@ if ! which nvim >&/dev/null ; then
 
     if echo "$PATH" | grep -q "${bin_path}" ; then
         echo "Please add to bashrc: PATH=\"\${PATH}:${bin_path}\""
+        echo "Or: alias nvim=\"${bin_path}/nvim\""
     fi
 fi
 
@@ -61,7 +67,7 @@ cd
 
 
 # PlugInstall plugins
-if ! [[ $use_bin -eq 0 ]] ; then
+if ! [[ $use_bin -eq 0 ]] ; then 
     $bin_path/nvim +PlugInstall +qa || exit 4
 else
     nvim           +PlugInstall +qa || exit 4

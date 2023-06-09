@@ -11,3 +11,5 @@ silent VerilogErrorFormat vcs 3
      silent VerilogErrorFormat vcs 3
  endfunction
  command! -nargs=0 VLint call VLint()
+
+" for lsp see the plugin verible/veridian

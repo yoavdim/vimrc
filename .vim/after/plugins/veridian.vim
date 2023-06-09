@@ -1,6 +1,11 @@
+" attach verible/veridian lsp
+if !has('nvim-0.5.0')
+	finish
+endif
+
 lua <<EOF
 
--- bindings taken from verible:
+-- bindings taken from verible, used here for both of them:
 
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -13,6 +18,7 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.keymap.set('i', '<C-tab>', '<C-x><C-o>')
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -32,25 +38,97 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+
+    local success, lsp_signature = pcall(require, 'lsp_signature')
+    if success then
+        lsp_signature.on_attach({hint_enable = true,
+        floating_window = false,
+        hint_prefix = "💡 ",})
+    end
 end
 
 
--- veridian original code:
 local util = require 'lspconfig/util'
 local nvim_lsp = require'lspconfig'
-local root_pattern = util.root_pattern("veridian.yml", ".git")
-local configs = require'lspconfig/configs'
-    configs.veridian = {
-      default_config = {
-        cmd = {"veridian"};
-        filetypes = {"systemverilog", "verilog"};
-        root_dir = function(fname)
-            local filename = util.path.is_absolute(fname) and fname
-                or util.path.join(vim.loop.cwd(), fname)
-            return root_pattern(filename) or util.path.dirname(filename)
-        end;
-        settings = {};
-      };
+
+local function setup_veridian_lsp() -- TODO doesnt work - when does, gives completions
+    local root_pattern = util.root_pattern("veridian.yml", ".git")
+    local configs = require'lspconfig/configs'
+        configs.veridian = {
+          default_config = {
+            cmd = {"veridian"},
+            filetypes = {"systemverilog", "verilog", "verilog_systemverilog"},
+            root_dir = function(fname)
+                local filename = util.path.is_absolute(fname) and fname
+                    or util.path.join(vim.loop.cwd(), fname)
+                return root_pattern(filename) or util.path.dirname(filename)
+            end,
+            settings = {}
+          }
+        }
+    nvim_lsp.veridian.setup{on_attach = on_attach} 
+end
+
+
+local function setup_verible_lsp()
+    require'lspconfig'.verible.setup {
+        on_attach = on_attach,
+        cmd = {os.getenv("HOME") .. "/.local/bin/verible/verible-verilog-ls"},
+        filetypes = {"systemverilog", "verilog", "verilog_systemverilog"},
+        root_dir = function() 
+            if os.getenv("trunk_cfg") ~= nil then -- for apple
+                return os.getenv("trunk_cfg")
+            end
+            return vim.loop.cwd() -- default, work directory
+        end
     }
-nvim_lsp.veridian.setup{on_attach = on_attach} 
+    -- INFO: run in trunk_cfg: find . -name "*.sv" -o -name "*.svh" -o -name "*.v" | sort > verible.filelist
+end
+
+
+-- TODO turn into a general lsp.vim
+-- python lsp (take git as root) --
+local function setup_python_lsp()
+    local lspconfig = require 'lspconfig'
+    local util = require 'lspconfig.util'
+
+    lspconfig.pyright.setup {
+        cmd = { "pyright-langserver", "--stdio", "--verbose" },
+        on_attach = on_attach,
+
+        -- capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        root_dir = util.root_pattern(".git")
+    }
+end
+
+
+
+local function setup_lsps()
+	local success, lspconfig = pcall(require, 'lspconfig')
+	if not success then
+		return
+	end
+
+  setup_python_lsp()
+  setup_veridian_lsp()
+  setup_verible_lsp()
+
+  -- status icon for LSP loading
+  local fidget
+	success, fidget = pcall(require, 'fidget')
+  if success then
+    fidget.setup{}
+  end
+
+  local lsp_signature
+	success, lsp_signature = pcall(require, 'lsp_signature')
+  if success then
+    lsp_signature.setup{
+      floating_window = false
+    }
+  end
+
+end
+
+setup_lsps()
 EOF

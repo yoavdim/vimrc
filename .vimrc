@@ -184,6 +184,8 @@ call plug#begin('~/.vim/plugged')
 source ~/.vim/after/plugins/telescope.vim
 if has("nvim")
     Plug 'neovim/nvim-lspconfig'
+    Plug 'ray-x/lsp_signature.nvim'
+    Plug 'j-hui/fidget.nvim'
 endif
 Plug 'vhda/verilog_systemverilog.vim'
 Plug 'justinmk/vim-syntax-extra'
@@ -205,7 +207,7 @@ Plug 'sakibmoon/vim-colors-notepad-plus-plus'
 
 call plug#end()
 
-source ~/.vim/after/plugins/veridian.vim
+source ~/.vim/after/plugins/veridian.vim  " verilog language server: verible/veridian, keep after config
 doautocmd User DoAfterConfigs
 
 colorscheme gruvbox

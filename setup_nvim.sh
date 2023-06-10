@@ -65,6 +65,12 @@ for folder in ftplugin plugins ; do
 done
 cd
 
+# Install language servers
+user_flag=""
+if [[ -n "$use_root" ]] ; then
+    user_flag='--user'
+fi
+python3 -m pip install $user_flag pyright 
 
 # PlugInstall plugins
 if ! [[ $use_bin -eq 0 ]] ; then 

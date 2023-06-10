@@ -14,7 +14,8 @@ fi
 cd 
 if [[ -n $force_new_nvim_install ]] || ! which nvim >&/dev/null ; then
     use_bin=1
-    if [[ -n $do_nvim_reinstall ]] && [[ -n "$bin_path/nvim.appimage" ]] ; then
+    if [[ -n $do_nvim_reinstall ]] && [[ -n "$bin_path/nvim" ]] ; then
+        rm -rf `pwd`/squashfs-root/AppRun  # TODO dont save it in the home directory where can clash
         rm -f "$bin_path/nvim.appimage"
         rm -f "$bin_path/nvim"
     fi
@@ -55,13 +56,9 @@ fi
 # link more rc files
 mkdir -p ~/.vim/after 2>/dev/null
 for folder in ftplugin plugins ; do
-    mkdir -p ~/.vim/after/$folder 2>/dev/null
-    cd ~/vimrc/.vim/after/$folder
-    for file in * ; do
-        if [[ ! -L "~/.vim/after/$folder/$file" ]] ; then
-            ln -s `pwd`/$file ~/.vim/after/$folder/$file  # allow to fail if exists
-        fi
-    done
+    if [[ ! -L "$HOME/.vim/after/$folder" ]] ; then
+        ln -Ts "$HOME/vimrc/.vim/after/$folder" "$HOME/.vim/after/$folder" || exit 3
+    fi
 done
 cd
 
@@ -70,7 +67,7 @@ user_flag=""
 if [[ -n "$use_root" ]] ; then
     user_flag='--user'
 fi
-python3 -m pip install $user_flag pyright 
+python3 -m pip install $user_flag pyright  # allow to fail
 
 # PlugInstall plugins
 if ! [[ $use_bin -eq 0 ]] ; then 

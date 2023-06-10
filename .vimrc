@@ -183,18 +183,26 @@ call plug#begin('~/.vim/plugged')
 
 source ~/.vim/after/plugins/telescope.vim
 if has("nvim")
+" language server
     Plug 'neovim/nvim-lspconfig'
     Plug 'ray-x/lsp_signature.nvim'
     Plug 'j-hui/fidget.nvim'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
 endif
+
+" more plugins
 Plug 'vhda/verilog_systemverilog.vim'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'ervandew/supertab'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'yoavdim/ScrollColors'
-Plug 'neovim/nvim-lspconfig'
 "Plug 'yoavdim/rightclick-macros'  -- TODO remove leftmouse mapping
+
 "color schemes:
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
@@ -208,6 +216,7 @@ Plug 'sakibmoon/vim-colors-notepad-plus-plus'
 call plug#end()
 
 source ~/.vim/after/plugins/lsp_setup.vim  " verilog language server: verible/veridian, keep after config
+source ~/.vim/after/plugins/cmp.vim
 doautocmd User DoAfterConfigs
 
 colorscheme gruvbox

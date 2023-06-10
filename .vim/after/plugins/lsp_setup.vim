@@ -5,8 +5,9 @@ endif
 
 lua <<EOF
 
--- bindings taken from verible, used here for both of them:
+local use_cmp = true
 
+-- bindings taken from verible:
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -16,9 +17,11 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.keymap.set('i', '<C-tab>', '<C-x><C-o>')
+  if not use_cmp then
+      -- Enable completion triggered by <c-x><c-o>
+      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      vim.keymap.set('i', '<C-tab>', '<C-x><C-o>')
+  end
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -58,6 +61,7 @@ local function setup_veridian_lsp() -- TODO doesnt work - when does, gives compl
           default_config = {
             cmd = {"veridian"},
             filetypes = {"systemverilog", "verilog", "verilog_systemverilog"},
+            capabilities = require('cmp_nvim_lsp').default_capabilities(),
             root_dir = function(fname)
                 local filename = util.path.is_absolute(fname) and fname
                     or util.path.join(vim.loop.cwd(), fname)
@@ -96,7 +100,7 @@ local function setup_python_lsp()
         cmd = { "pyright-langserver", "--stdio", "--verbose" },
         on_attach = on_attach,
 
-        -- capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        capabilities = require('cmp_nvim_lsp').default_capabilities(), -- TODO only when using cmp
         root_dir = util.root_pattern(".git")
     }
 end

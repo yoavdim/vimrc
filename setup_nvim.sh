@@ -3,6 +3,7 @@
 # to control this script export $use_root, $force_new_nvim_install (ignore the distribution version, download from git), $do_nvim_reinstall (remove downloaded version and reinstall)
 vimrc_git_name=vimrc
 bin_path=~/.local/bin
+appimage_path=~
 use_bin=0 # if binary in $path or not
 
 # easy root install (export use_root=1)
@@ -11,24 +12,24 @@ if [[ $use_root -ne 0 ]]; then
 fi
 
 # install nvim 
-cd 
+cd $appimage_path || exit 1
 if [[ -n $force_new_nvim_install ]] || ! which nvim >&/dev/null ; then
     use_bin=1
     if [[ -n $do_nvim_reinstall ]] && [[ -n "$bin_path/nvim" ]] ; then
-        rm -rf `pwd`/squashfs-root/AppRun  # TODO dont save it in the home directory where can clash
-        rm -f "$bin_path/nvim.appimage"
+        rm -rf ./squashfs-root/AppRun  # TODO dont save it in the home directory where can clash
         rm -f "$bin_path/nvim"
     fi
     if [[ ! -f "$bin_path/nvim" ]] ; then
-        curl -LsO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage || exit 1
+        curl -LsO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage || [[ -n nvim.appimage ]] || exit 1
         chmod u+x nvim.appimage || exit 1
         mkdir -p "$bin_path" 2>/dev/null
         if ! ./nvim.appimage +qa ; then 
             ./nvim.appimage --appimage-extract || exit 1
+            rm -f $bin_path/nvim
             ln -s `pwd`/squashfs-root/AppRun $bin_path/nvim || exit 1
-            rm ~/nvim.appimage
+            rm ./nvim.appimage
         else 
-            ln -s `pwd`/nvim.appimage $bin_path/nvim || exit 1
+            mv `pwd`/nvim.appimage $bin_path/nvim || exit 1
         fi
     fi
 

@@ -207,7 +207,7 @@ Plug 'sakibmoon/vim-colors-notepad-plus-plus'
 
 call plug#end()
 
-source ~/.vim/after/plugins/veridian.vim  " verilog language server: verible/veridian, keep after config
+source ~/.vim/after/plugins/lsp_setup.vim  " verilog language server: verible/veridian, keep after config
 doautocmd User DoAfterConfigs
 
 colorscheme gruvbox

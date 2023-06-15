@@ -182,6 +182,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 source ~/.vim/after/plugins/telescope.vim
+source ~/.vim/after/plugins/p4.vim
 if has("nvim")
 " language server
     Plug 'neovim/nvim-lspconfig'

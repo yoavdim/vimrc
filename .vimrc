@@ -90,7 +90,15 @@ nmap <M-s> <Esc>:w
 imap <M-s> <Esc>:wi
 
 " Right Click Menu TODO
-set mousemodel=popup
+"set mousemodel=popup
+" neovim 0.8
+aunmenu PopUp.How-to\ disable\ mouse
+aunmenu PopUp.-1-
+nmenu PopUp.save       :w<cr>
+nmenu PopUp.buffers    :Telescope buffers<cr>
+nmenu PopUp.live\ grep :Telescope live_grep<cr>
+vmenu PopUp.find       / 
+
 
 "let g:rightclick_default_mapping = 0
 "nnoremap <silent> <RightMouse> <LeftMouse>:call Rightclick_normal()<CR>

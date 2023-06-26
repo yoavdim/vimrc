@@ -5,6 +5,9 @@ endif
 
 lua <<EOF
 
+-- call neodev before lspconfig
+require("neodev").setup{library = { plugins = { "nvim-dap-ui" }, types = true }}
+
 local use_cmp = true
 
 -- bindings taken from verible:

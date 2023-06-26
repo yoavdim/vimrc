@@ -189,18 +189,31 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 call plug#begin('~/.vim/plugged')
 
-source ~/.vim/after/plugins/telescope.vim
-source ~/.vim/after/plugins/p4.vim
+source ~/.vim/plugins/telescope.vim
+source ~/.vim/plugins/p4.vim
 if has("nvim")
+" treesitter
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " language server
+    Plug 'folke/neodev.nvim'
     Plug 'neovim/nvim-lspconfig'
     Plug 'ray-x/lsp_signature.nvim'
     Plug 'j-hui/fidget.nvim'
+    Plug 'rmagatti/goto-preview'
+" completion
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/nvim-cmp'
+" debugger
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'mfussenegger/nvim-dap-python'
+    Plug 'rcarriga/nvim-dap-ui'
+    Plug 'theHamsta/nvim-dap-virtual-text'
+    Plug 'nvim-telescope/telescope-dap.nvim'
+" ...
+    Plug 'folke/which-key.nvim'
 endif
 
 " more plugins
@@ -217,15 +230,23 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'nanotech/jellybeans.vim'
-Plug 'sakibmoon/vim-colors-notepad-plus-plus'
+Plug 'mhartington/oceanic-next'
+Plug 'nvimdev/zephyr-nvim'
+" Plug 'sakibmoon/vim-colors-notepad-plus-plus'
 
 "Plug 'mg979/vim-visual-multi', {'branch': 'master'} - take toturial first
 " already preincluded? Plug 'https://github.com/adelarsq/vim-matchit'
 
 call plug#end()
 
-source ~/.vim/after/plugins/lsp_setup.vim  " verilog language server: verible/veridian, keep after config
-source ~/.vim/after/plugins/cmp.vim
+if has("nvim")
+    lua require("which-key").setup{}
+    source ~/.vim/plugins/treesitter.vim
+    source ~/.vim/plugins/lsp_setup.vim  " verilog language server: verible/veridian, keep after config
+    source ~/.vim/plugins/cmp.vim
+    source ~/.vim/plugins/dap.vim
+    lua require('goto-preview').setup {default_mappings = true} -- see lspsaga as an alternative 
+endif
 doautocmd User DoAfterConfigs
 
 colorscheme gruvbox

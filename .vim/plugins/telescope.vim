@@ -135,6 +135,11 @@ function setup_telescope()
 
 	vim.api.nvim_set_keymap('n', ' a', "<cmd>lua require('telescope.builtin').buffers{ sort_mru = true, ignore_current_buffer = true }<cr>", {noremap = true})
 	vim.api.nvim_set_keymap('n', '<space><space>', "<cmd>lua require('telescope.builtin').find_files()<cr>", {noremap = true})
+    vim.keymap.set('n', 'gD', telescope.builtin.lsp_definitions, { jump_type="never"})
+    vim.keymap.set('n', 'gr', telescope.builtin.lsp_references)
+    vim.keymap.set('n', 'gR', telescope.builtin.lsp_references, {jump_type="never"})
+    vim.keymap.set('n', 'gs', telescope.builtin.lsp_document_symbols ) -- treesitter instead?
+    require('telescope').load_extension('dap')
 end
 
 vim.api.nvim_command("augroup TelescopeAU")

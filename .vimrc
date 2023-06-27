@@ -89,21 +89,18 @@ nnoremap <leader>sa ggVG
 nmap <M-s> <Esc>:w
 imap <M-s> <Esc>:wi
 
-" Right Click Menu TODO
-"set mousemodel=popup
+" Right Click Menu
 " neovim 0.8
-aunmenu PopUp.How-to\ disable\ mouse
-aunmenu PopUp.-1-
-nmenu PopUp.save       :w<cr>
-nmenu PopUp.buffers    :Telescope buffers<cr>
-nmenu PopUp.live\ grep :Telescope live_grep<cr>
-vmenu PopUp.find       / 
-
-
-"let g:rightclick_default_mapping = 0
-"nnoremap <silent> <RightMouse> <LeftMouse>:call Rightclick_normal()<CR>
-"inoremap <silent> <RightMouse> <Esc>:call Rightclick_normal()<CR>
-"vnoremap <silent> <RightMouse> <LeftMouse>:call Rightclick_visual()<CR>
+if has("nvim") && !exists("g:menu_already_defined")
+    aunmenu PopUp.How-to\ disable\ mouse
+    aunmenu PopUp.-1-
+    nmenu PopUp.save       :w<cr>
+    nmenu PopUp.buffers    :Telescope buffers<cr>
+    nmenu PopUp.live\ grep :Telescope live_grep<cr>
+    vmenu PopUp.find       / 
+    " run only once even on reload
+    let g:menu_already_defined="yes"
+endif
 
 " vimrc edit
 nnoremap <leader>ev :e ~/.vimrc<CR>
@@ -245,7 +242,7 @@ if has("nvim")
     source ~/.vim/plugins/lsp_setup.vim  " verilog language server: verible/veridian, keep after config
     source ~/.vim/plugins/cmp.vim
     source ~/.vim/plugins/dap.vim
-    lua require('goto-preview').setup {default_mappings = true} -- see lspsaga as an alternative 
+    lua require('goto-preview').setup {default_mappings = true} -- see lspsaga as an alternative, also, native telescope
 endif
 doautocmd User DoAfterConfigs
 

@@ -11,6 +11,10 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 " Beginning transition from FZF to Telescope
 
+" Help: Actions Inside Telescope:
+" <C-x> go to file selection as a split   
+" <C-v> go to file selection as a vsplit   
+" <C-t> go to a file in a new tab
 
 let g:my_telescope_supported=1
 
@@ -133,12 +137,14 @@ function setup_telescope()
 	--	},
 	}
 
-	vim.api.nvim_set_keymap('n', ' a', "<cmd>lua require('telescope.builtin').buffers{ sort_mru = true, ignore_current_buffer = true }<cr>", {noremap = true})
-	vim.api.nvim_set_keymap('n', '<space><space>', "<cmd>lua require('telescope.builtin').find_files()<cr>", {noremap = true})
-    vim.keymap.set('n', 'gD', telescope.builtin.lsp_definitions, { jump_type="never"})
-    vim.keymap.set('n', 'gr', telescope.builtin.lsp_references)
-    vim.keymap.set('n', 'gR', telescope.builtin.lsp_references, {jump_type="never"})
-    vim.keymap.set('n', 'gs', telescope.builtin.lsp_document_symbols ) -- treesitter instead?
+    -- Keymaps:
+	vim.api.nvim_set_keymap('n', 'gb', "<cmd>lua require('telescope.builtin').buffers{ sort_mru = true, ignore_current_buffer = true }<cr>", {noremap = true, desc = "list buffers"})
+	vim.api.nvim_set_keymap('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>", {noremap = true, desc = "find files"})
+    vim.keymap.set('n', 'gD', function() require('telescope.builtin').lsp_definitions{jump_type="never"} end, {desc = "do definition (telescope)"})
+    vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, {desc ="go refernces"})
+    vim.keymap.set('n', 'gR', function() require('telescope.builtin').lsp_references{jump_type="never"} end, {desc="list references"})
+    vim.keymap.set('n', 'gl', require('telescope.builtin').treesitter, {desc = "list symbols in file"}) 
+    vim.keymap.set('n', 'go', require('telescope.builtin').oldfiles, {desc = "open recent file"}) 
     require('telescope').load_extension('dap')
 end
 

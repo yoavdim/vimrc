@@ -56,20 +56,22 @@ fi
 
 # link more rc files
 mkdir -p ~/.vim/after 2>/dev/null
-for folder in ftplugin plugins ; do
-    if [[ ! -L "$HOME/.vim/after/$folder" ]] ; then
-        ln -Ts "$HOME/vimrc/.vim/after/$folder" "$HOME/.vim/after/$folder" || exit 3
+for folder in 'after/ftplugin' plugins ; do
+    if [[ ! -L "$HOME/.vim/$folder" ]] ; then
+        ln -Ts "$HOME/vimrc/.vim/$folder" "$HOME/.vim/$folder" || exit 3
     fi
 done
 cd
 
 # Install language servers
 user_flag=""
+use_sudo="sudo"
 if [[ -n "$use_root" ]] ; then
     user_flag='--user'
+    use_sudo=""
 fi
-python3 -m pip install $user_flag pyright  # allow to fail
-python3 -m pip install $user_flag debugpy  # allow to fail
+$use_sudo python3 -m pip install $user_flag pyright  # allow to fail
+$use_sudo python3 -m pip install $user_flag debugpy  # allow to fail
 
 # PlugInstall plugins
 if ! [[ $use_bin -eq 0 ]] ; then 

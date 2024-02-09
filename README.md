@@ -17,3 +17,12 @@ echo 'alias vim=nvim' >> ~/.zshrc
 echo 'alias v=nvim' >> ~/.zshrc
 echo 'alias g=gnome-terminal -- nvim' >> ~/.zshrc
 ```
+# keygen
+```shell
+ssh-keygen -t ed25519 -C "yoav.dim@github.com"  # press Enters
+```
+```shell
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
+```

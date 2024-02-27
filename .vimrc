@@ -14,6 +14,7 @@ set ignorecase
 :au! BufRead,BufNewFile csim_pli.elog  set filetype=csimpli
 :au! BufRead,BufNewFile *.rpt   set filetype=csimpli
  au! BufRead,BufNewFile *.tex   set filetype=tex
+ au! BufRead,BufNewFile *.e     set filetype=specman
 :set history=20
 :set wildchar=<TAB>
 :set showmatch

@@ -7,6 +7,7 @@ endif
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'debugloop/telescope-undo.nvim'
 "Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " Beginning transition from FZF to Telescope
@@ -146,6 +147,7 @@ function setup_telescope()
     vim.keymap.set('n', 'gl', require('telescope.builtin').treesitter, {desc = "list symbols in file"}) 
     vim.keymap.set('n', 'go', require('telescope.builtin').oldfiles, {desc = "open recent file"}) 
     require('telescope').load_extension('dap')
+    require("telescope").load_extension("undo")
 end
 
 vim.api.nvim_command("augroup TelescopeAU")

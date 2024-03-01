@@ -70,8 +70,8 @@ if [[ -n "$use_root" ]] ; then
     user_flag='--user'
     use_sudo=""
 fi
-$use_sudo python3 -m pip install $user_flag pyright  # allow to fail
-$use_sudo python3 -m pip install $user_flag debugpy  # allow to fail
+$use_sudo python3 -m pip install $user_flag pyright       # allow to fail
+$use_sudo python3 -m pip install $user_flag debugpy pudb  # allow to fail
 
 # PlugInstall plugins
 if ! [[ $use_bin -eq 0 ]] ; then 

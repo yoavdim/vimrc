@@ -3,6 +3,7 @@ if !has('nvim')
 endif
 
 lua <<EOF
+require'nvim-treesitter.install'.compilers = { 'clang' }
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
   ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "python", "javascript", "perl", "verilog", "css", "bash", "html", "matlab", "cpp", "c_sharp", "erlang" },

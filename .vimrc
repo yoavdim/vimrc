@@ -220,6 +220,7 @@ Plug 'justinmk/vim-syntax-extra'
 Plug 'ervandew/supertab'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-commentary'
 Plug 'yoavdim/ScrollColors'
 "Plug 'yoavdim/rightclick-macros'  -- TODO remove leftmouse mapping
 

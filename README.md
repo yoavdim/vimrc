@@ -17,6 +17,13 @@ echo 'alias vim=nvim' >> ~/.zshrc
 echo 'alias v=nvim' >> ~/.zshrc
 echo 'alias g=gnome-terminal -- nvim' >> ~/.zshrc
 ```
+# more aliases
+```shell
+alias g='grep -i'
+alias gr='grep -inr'
+alias lrc='source ~/.zshrc'
+alias erc='nvim ~/.zshrc'
+```
 # keygen
 ```shell
 ssh-keygen -t ed25519 -C "yoav.dim@github.com"  # press Enters

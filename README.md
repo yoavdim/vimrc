@@ -15,7 +15,7 @@ echo 'export PATH=${HOME}/.local/bin:${PATH}' >> ~/.zshrc
 ```shell
 echo 'alias vim=nvim' >> ~/.zshrc
 echo 'alias v=nvim' >> ~/.zshrc
-echo 'alias gv=gnome-terminal -- nvim' >> ~/.zshrc
+echo 'alias gv="gnome-terminal -- nvim"' >> ~/.zshrc
 ```
 # more aliases
 ```shell

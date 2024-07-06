@@ -10,7 +10,8 @@ sudo apt-get install zsh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 ```shell
-echo 'export PATH=${HOME}/.local/bin:${PATH}' >> ~/.zshrc
+mkdir ~/scripts
+echo 'export PATH=${HOME}/.local/bin:${HOME}/scripts:${PATH}' >> ~/.zshrc
 ```
 ```shell
 echo 'alias vim=nvim' >> ~/.zshrc

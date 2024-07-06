@@ -24,6 +24,7 @@ alias g='grep -i'
 alias gr='grep -inr'
 alias lrc='source ~/.zshrc'
 alias erc='nvim ~/.zshrc'
+function mkd() { mkdir "$1" ; cd "$1" ; }
 ```
 # keygen
 ```shell

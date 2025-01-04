@@ -15,34 +15,36 @@ set ignorecase
 :au! BufRead,BufNewFile *.rpt   set filetype=csimpli
  au! BufRead,BufNewFile *.tex   set filetype=tex
  au! BufRead,BufNewFile *.e     set filetype=specman
+ au! BufRead,BufNewFile *.e.backup     set filetype=specman
 :set history=20
 :set wildchar=<TAB>
 :set showmatch
 :set hlsearch
 :set incsearch
+set ts=4
+set shiftwidth=4
 set autoindent
 augroup sv_indent
     au!
     autocmd FileType * if &filetype != "verilog_systemverilog" | setlocal smartindent
     autocmd FileType * if &filetype == "verilog_systemverilog" | setlocal autoindent
+    autocmd FileType specman setlocal ts=3 shiftwidth=3
 augroup END
-:ab arch architecture
 set laststatus =2
 set statusline=%<%f%=\ [%1*%M%*%n%R%H]\ %-19(%3l,%02c%03V%)%O'%02b'
 "let &packpath = &runtimepath
 
 " gui staff 
-:set guifont=Courier10Pitch\ 16
-:set ts=4
-:set titlestring=%t
-:set undolevels=500
-:set nocp
-:set guioptions=agimrLtTbt
-:set bs=2 "backspace allowed always
-:syn match cm ".*::.*"
-:hi cm guibg='Cyan'
-:hi Visual guibg='Yellow' guifg='Darkred'
-:hi normal guifg=blue guibg=gray 
+set guifont=Courier10Pitch\ 16
+set titlestring=%t
+set undolevels=500
+set nocp
+set guioptions=agimrLtTbt
+set bs=2 "backspace allowed always
+syn match cm ".*::.*"
+hi cm guibg='Cyan'
+hi Visual guibg='Yellow' guifg='Darkred'
+hi normal guifg=blue guibg=gray 
 "hi normal guifg=blue guibg=gray
 set nu
 color desert
@@ -168,7 +170,6 @@ command X x
 " use f instead of ; in find
 nnoremap ; :
 " auto-generated tab is also of normal size "
-set shiftwidth=4
 set textwidth=0
 
 " jump to the last location from previews session
@@ -190,13 +191,18 @@ call plug#begin('~/.vim/plugged')
 source ~/.vim/plugins/telescope.vim
 source ~/.vim/plugins/p4.vim
 if has("nvim")
+    Plug 'nvim-tree/nvim-web-devicons'
+    Plug 'nvim-lua/plenary.nvim'
+" telescope
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'debugloop/telescope-undo.nvim'
 " treesitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " language server
     Plug 'folke/neodev.nvim'
     Plug 'neovim/nvim-lspconfig'
     Plug 'ray-x/lsp_signature.nvim'
-    Plug 'j-hui/fidget.nvim'
+    "Plug 'j-hui/fidget.nvim'
     Plug 'rmagatti/goto-preview'
 " completion
     Plug 'hrsh7th/cmp-nvim-lsp'
@@ -212,27 +218,32 @@ if has("nvim")
     Plug 'nvim-telescope/telescope-dap.nvim'
 " ...
     Plug 'folke/which-key.nvim'
+    Plug 'nvim-lualine/lualine.nvim'
 endif
 
 " more plugins
 Plug 'vhda/verilog_systemverilog.vim'
-Plug 'justinmk/vim-syntax-extra'
-Plug 'ervandew/supertab'
+Plug 'justinmk/vim-syntax-extra'  " flex/bison syntax
+"Plug 'ervandew/supertab'
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
 Plug 'yoavdim/ScrollColors'
 Plug 'vitalk/vim-shebang'
+Plug 'ngemily/vim-vp4'
 "Plug 'yoavdim/rightclick-macros'  -- TODO remove leftmouse mapping
 
 "color schemes:
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/everforest'
+Plug 'nordtheme/vim', { 'as': 'nord' }
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'nanotech/jellybeans.vim'
 Plug 'mhartington/oceanic-next'
 Plug 'nvimdev/zephyr-nvim'
-" Plug 'sakibmoon/vim-colors-notepad-plus-plus'
+let g:everforest_background = 'hard'
+let g:gruvbox_contarst_dark = 'hard'
 
 "Plug 'mg979/vim-visual-multi', {'branch': 'master'} - take toturial first
 " already preincluded? Plug 'https://github.com/adelarsq/vim-matchit'
@@ -240,12 +251,14 @@ Plug 'nvimdev/zephyr-nvim'
 call plug#end()
 
 if has("nvim")
-    lua require("which-key").setup{}
+    lua require("which-key").setup{options = {icons_enabled=false}}
     source ~/.vim/plugins/treesitter.vim
     source ~/.vim/plugins/lsp_setup.vim  " verilog language server: verible/veridian, keep after config
     source ~/.vim/plugins/cmp.vim
     source ~/.vim/plugins/dap.vim
     lua require('goto-preview').setup {default_mappings = true} -- see lspsaga as an alternative, also, native telescope
+    lua require('lualine').setup()
+    lua dofile(vim.fn.expand('~/.vim/plugins/workspace.lua')) 
 endif
 doautocmd User DoAfterConfigs
 

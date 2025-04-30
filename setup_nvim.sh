@@ -20,7 +20,7 @@ if [[ -n $force_new_nvim_install ]] || ! which nvim >&/dev/null ; then
         rm -f "$bin_path/nvim"
     fi
     if [[ ! -f "$bin_path/nvim" ]] ; then
-        curl -LsO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage || [[ -n nvim.appimage ]] || exit 1
+        curl -LsO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage && mv nvim-linux-x86_64.appimage nvim.appimage  | [[ -n nvim.appimage ]] || exit 1
         chmod u+x nvim.appimage || exit 1
         mkdir -p "$bin_path" 2>/dev/null
         if ! ./nvim.appimage +qa ; then 

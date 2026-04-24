@@ -231,9 +231,6 @@ function setup_telescope()
     require("telescope").load_extension("undo")
 end
 
-vim.api.nvim_command("augroup TelescopeAU")
-vim.api.nvim_command("au!")
-vim.api.nvim_command("autocmd User DoAfterConfigs ++nested lua setup_telescope()")
-vim.api.nvim_command("augroup END")
+-- setup_telescope() is called from vimrc after plug#end()
 
 EOF

@@ -39,7 +39,7 @@ set guifont=Courier10Pitch\ 16
 set titlestring=%t
 set undolevels=500
 set nocp
-set guioptions=agimrLtTbt
+if !has("nvim") | set guioptions=agimrLtTbt | endif
 set bs=2 "backspace allowed always
 syn match cm ".*::.*"
 hi cm guibg='Cyan'
@@ -269,9 +269,9 @@ if has("nvim")
     lua require('gitsigns').setup()
     lua require('scrollbar').setup()
     lua require("scrollbar.handlers.gitsigns").setup()
-    lua dofile(vim.fn.expand('~/.vim/plugins/workspace.lua')) 
+    lua dofile(vim.fn.expand('~/.vim/plugins/workspace.lua'))
+    lua setup_telescope()
 endif
-doautocmd User DoAfterConfigs
 
 colorscheme gruvbox
 

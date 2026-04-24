@@ -193,6 +193,8 @@ source ~/.vim/plugins/p4.vim
 if has("nvim")
     Plug 'nvim-tree/nvim-web-devicons'
     Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-neotest/nvim-nio'
+    Plug 'MunifTanjim/nui.nvim'
 " telescope
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'debugloop/telescope-undo.nvim'
@@ -219,6 +221,10 @@ if has("nvim")
 " ...
     Plug 'folke/which-key.nvim'
     Plug 'nvim-lualine/lualine.nvim'
+    Plug 'nvim-neo-tree/neo-tree.nvim', {'branch': 'v3.x'}
+    Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
+    Plug 'lewis6991/gitsigns.nvim'
+    Plug 'petertriho/nvim-scrollbar'
 endif
 
 " more plugins
@@ -228,6 +234,7 @@ Plug 'justinmk/vim-syntax-extra'  " flex/bison syntax
 Plug 'rhysd/clever-f.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'yoavdim/ScrollColors'
 Plug 'vitalk/vim-shebang'
 Plug 'ngemily/vim-vp4'
@@ -258,6 +265,10 @@ if has("nvim")
     source ~/.vim/plugins/dap.vim
     lua require('goto-preview').setup {default_mappings = true} -- see lspsaga as an alternative, also, native telescope
     lua require('lualine').setup()
+    lua require('bufferline').setup()
+    lua require('gitsigns').setup()
+    lua require('scrollbar').setup()
+    lua require("scrollbar.handlers.gitsigns").setup()
     lua dofile(vim.fn.expand('~/.vim/plugins/workspace.lua')) 
 endif
 doautocmd User DoAfterConfigs

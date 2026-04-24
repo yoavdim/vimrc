@@ -1,5 +1,5 @@
 lua <<EOF
-    require('dap-python').setup()
+    require('dap-python').setup('python3')
     require("nvim-dap-virtual-text").setup {commented = true}
     require("dapui").setup()
 
